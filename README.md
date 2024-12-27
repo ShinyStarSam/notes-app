@@ -1,2 +1,2 @@
 # notes-app
-Note taking web application using the PERN stack.
+Note taking web application using the PERN stack and Typescript.
