@@ -1,6 +1,8 @@
 {
-    "watch": ["src/**/*"],
-    "ext": "ts,tsx",
+    "watch": ["src/**/*", "node_modules/**/*.ts"],
+    "ext": "ts,tsx,mjs,js,json",
     "ignore": ["src/**/*.test.ts"],
-    "exec": "node --loader ts-node/esm ./src/server.ts"
+    "execMap": {
+        "ts": "ts-node"
+      }
 }

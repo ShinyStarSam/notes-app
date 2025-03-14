@@ -1,6 +1,10 @@
 //import * as express from "express";
 import express from "express";
 import cors from "cors";
+import pool from '../db.mjs';  // Import the ES module version of db
+
+
+const PORT = process.env.PORT ?? 8000;
 
 const app = express();
 const corsOptions = {
@@ -9,11 +13,17 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.get("/api", (req, res) => {
-    res.json({"fruits": ["apple", "orange", "banana"]});
+app.get("/todos/:userEmail", async (req, res) => {
+    const { userEmail } = req.params
 
+    try {
+        const todos = await pool.query("SELECT * FROM todos WHERE user_email = $1", [userEmail])
+        res.json(todos.rows)
+    } catch (err) {
+        console.error(err)
+    }
 });
 
-app.listen(8080, () => {
-    console.log("Server started on port 8080");
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
 });
